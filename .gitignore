@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+
+# Respaldos locales
+www-backup/
+
+# Android Studio
+.idea/
+*.iml
+android/.idea/
+
+# Gradle
+.gradle/
+android/.gradle/
+android/local.properties
+android/**/build/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Variables de entorno
+.env
+.env.*

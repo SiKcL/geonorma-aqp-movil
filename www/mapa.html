@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visor de Zonificación PDM Arequipa</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <!-- Leaflet Control Geocoder CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+  <link rel="stylesheet" href="css/mapa.css">
+</head>
+<body>
+
+<!-- Contenedor de controles superiores -->
+<div class="top-controls">
+  <a href="index.html" class="btn-control">
+    <span>🏠</span> <span>Volver a inicio</span>
+  </a>
+
+  <button id="themeToggle" class="btn-control">
+    <span id="themeIcon">🌙</span> <span id="themeText">Modo Noche</span>
+  </button>
+</div>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Leaflet Control Geocoder JS -->
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<!-- Turf.js -->
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+
+<!-- Datos Normativos -->
+<script src="js/diccionario.js"></script>
+
+<script src="js/mapa.js"></script>
+</body>
+</html>

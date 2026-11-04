@@ -1,0 +1,2287 @@
+
+/* =========================================
+   GEONORMA AQP - MOBILE APP
+   Diseño principal
+========================================= */
+
+:root {
+    --primary: #1455a0;
+    --primary-dark: #103f78;
+    --primary-light: #eaf2fc;
+
+    --background: #f5f7fb;
+    --surface: #ffffff;
+
+    --text-primary: #172b4d;
+    --text-secondary: #718096;
+
+    --border: #e8edf4;
+
+    --success: #269b72;
+
+    --radius-lg: 22px;
+    --radius-md: 16px;
+    --radius-sm: 12px;
+}
+
+
+/* =========================================
+   RESET Y CONFIGURACIÓN GENERAL
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: var(--background);
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text-primary);
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+}
+
+
+/* =========================================
+   BARRA SUPERIOR
+========================================= */
+
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 14px 20px;
+    padding-top: env(safe-area-inset-top);
+
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary);
+    color: white;
+
+    border-radius: 14px;
+
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.brand-text h1 {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.brand-text h1 span {
+    color: var(--primary);
+}
+
+.brand-text p {
+    margin-top: 3px;
+    color: var(--text-secondary);
+    font-size: 10px;
+}
+
+.header-action {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 20px;
+}
+
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+
+.app-content {
+    width: 100%;
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    padding: 20px 18px calc(110px + env(safe-area-inset-bottom));
+}
+
+.view {
+    display: none;
+    animation: fadeIn 0.25s ease;
+}
+
+.view.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================
+   PORTADA / BIENVENIDA
+========================================= */
+
+.welcome-section {
+    position: relative;
+    overflow: hidden;
+
+    padding: 30px 24px;
+
+    min-height: 310px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    background: linear-gradient(
+        135deg,
+        #1455a0 0%,
+        #103f78 100%
+    );
+
+    color: white;
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: 0 12px 28px rgba(20, 85, 160, 0.18);
+}
+
+.eyebrow {
+    display: block;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.7px;
+
+    color: var(--primary);
+}
+
+.welcome-section .eyebrow {
+    color: #a9d0ff;
+}
+
+.welcome-section h2 {
+    position: relative;
+    z-index: 2;
+
+    margin-top: 15px;
+
+    font-size: 35px;
+    line-height: 1.1;
+
+    letter-spacing: -1.5px;
+}
+
+.welcome-section > p {
+    position: relative;
+    z-index: 2;
+
+    max-width: 290px;
+
+    margin-top: 13px;
+
+    color: #d7e7fa;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.primary-button {
+    position: relative;
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    margin-top: 23px;
+
+    padding: 13px 19px;
+
+    background: white;
+    color: var(--primary);
+
+    border-radius: 12px;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    transition: transform 0.2s ease;
+}
+
+.primary-button:active {
+    transform: scale(0.96);
+}
+
+.primary-button span {
+    font-size: 18px;
+}
+
+
+/* Decoración de portada */
+
+.welcome-decoration {
+    position: absolute;
+
+    right: -45px;
+    bottom: -45px;
+
+    width: 220px;
+    height: 220px;
+
+    pointer-events: none;
+}
+
+.decoration-circle {
+    position: absolute;
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+}
+
+.circle-one {
+    width: 180px;
+    height: 180px;
+
+    right: 20px;
+    bottom: 20px;
+}
+
+.circle-two {
+    width: 130px;
+    height: 130px;
+
+    right: 45px;
+    bottom: 45px;
+}
+
+.decoration-grid {
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    right: 50px;
+    bottom: 50px;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+
+    background-size: 18px 18px;
+
+    transform: rotate(15deg);
+}
+
+.decoration-text {
+    position: absolute;
+
+    right: 80px;
+    bottom: 80px;
+
+    color: rgba(255, 255, 255, 0.15);
+
+    font-size: 45px;
+    font-weight: 900;
+}
+
+
+/* =========================================
+   SECCIONES Y TÍTULOS
+========================================= */
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 30px 2px 17px;
+}
+
+.section-heading h3 {
+    margin-top: 7px;
+    font-size: 19px;
+    letter-spacing: -0.5px;
+}
+
+.page-heading {
+    margin: 12px 2px 23px;
+}
+
+.page-heading h2 {
+    margin-top: 9px;
+    font-size: 27px;
+    letter-spacing: -1px;
+}
+
+.page-heading p {
+    margin-top: 7px;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   TARJETAS DE FUNCIONES
+========================================= */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+.feature-card {
+    position: relative;
+
+    min-height: 155px;
+
+    padding: 17px 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    text-align: left;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:active {
+    transform: scale(0.97);
+}
+
+.feature-icon {
+    width: 39px;
+    height: 39px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 24px;
+}
+
+.map-icon {
+    background: #e8f1ff;
+    color: #2366b2;
+}
+
+.search-icon {
+    background: #e7f7ef;
+    color: #249568;
+}
+
+.document-icon {
+    background: #fff2e5;
+    color: #dc8735;
+}
+
+.history-icon {
+    background: #f0ebff;
+    color: #8061c8;
+}
+
+.feature-card h4 {
+    margin-top: 12px;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.feature-card p {
+    margin-top: 5px;
+
+    color: var(--text-secondary);
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.feature-arrow {
+    position: absolute;
+
+    top: 15px;
+    right: 14px;
+
+    color: #a0aec0;
+    font-size: 17px;
+}
+
+
+/* =========================================
+   BANNER INFORMATIVO
+========================================= */
+
+.info-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    margin-top: 20px;
+    padding: 16px;
+
+    background: #eaf2fc;
+
+    border: 1px solid #dceafa;
+    border-radius: var(--radius-md);
+}
+
+.info-banner-icon {
+    width: 27px;
+    height: 27px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.info-banner h4 {
+    font-size: 12px;
+}
+
+.info-banner p {
+    margin-top: 5px;
+
+    color: #536b88;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   MAPA
+========================================= */
+
+#map-container {
+    width: 100%;
+    min-height: 430px;
+
+    overflow: hidden;
+
+    background: #e8edf2;
+
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+}
+
+.map-placeholder {
+    min-height: 430px;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 39px,
+            #d6e0e9 40px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 39px,
+            #d6e0e9 40px
+        );
+}
+
+.map-placeholder-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+    color: var(--primary);
+
+    border-radius: 20px;
+
+    font-size: 36px;
+
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+.map-placeholder h3 {
+    margin-top: 17px;
+    font-size: 17px;
+}
+
+.map-placeholder p {
+    max-width: 250px;
+
+    margin-top: 8px;
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   ESTADOS VACÍOS
+========================================= */
+
+.empty-state {
+    padding: 40px 24px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.empty-state-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border-radius: 20px;
+
+    font-size: 30px;
+}
+
+.empty-state h3 {
+    margin-top: 18px;
+    font-size: 17px;
+}
+
+.empty-state p {
+    max-width: 280px;
+
+    margin-top: 9px;
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.secondary-button {
+    margin-top: 20px;
+    padding: 12px 18px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border-radius: 11px;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+/* =========================================
+   INFORMACIÓN DEL PROYECTO
+========================================= */
+
+.about-card {
+    padding: 28px 22px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+    background: white;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+
+.about-logo {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary);
+    color: white;
+
+    border-radius: 22px;
+
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.about-card h3 {
+    margin-top: 17px;
+    font-size: 21px;
+}
+
+.version-label {
+    margin-top: 7px;
+
+    padding: 5px 11px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.about-card p {
+    margin-top: 20px;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.disclaimer-card {
+    margin-top: 15px;
+    padding: 18px;
+
+    background: #fff8eb;
+
+    border: 1px solid #f5e7c9;
+    border-radius: var(--radius-md);
+}
+
+.disclaimer-card h4 {
+    font-size: 13px;
+    color: #8d6827;
+}
+
+.disclaimer-card p {
+    margin-top: 8px;
+
+    color: #927d59;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   NAVEGACIÓN INFERIOR
+========================================= */
+
+.bottom-navigation {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 200;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    padding: 10px 5px calc(10px + env(safe-area-inset-bottom));
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-top: 1px solid var(--border);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+.nav-item {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    padding: 4px 0;
+
+    background: transparent;
+    color: #929daf;
+
+    font-size: 8px;
+    font-weight: 600;
+
+    transition: color 0.2s ease;
+}
+
+.nav-icon {
+    font-size: 23px;
+    line-height: 1;
+}
+
+.nav-item.active {
+    color: var(--primary);
+}
+
+.nav-item.active .nav-icon {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   PANTALLAS PEQUEÑAS
+========================================= */
+
+@media (max-width: 360px) {
+
+    .app-content {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .welcome-section {
+        padding: 25px 19px;
+    }
+
+    .welcome-section h2 {
+        font-size: 30px;
+    }
+
+    .feature-card {
+        padding: 13px 11px;
+    }
+
+    .feature-card h4 {
+        font-size: 12px;
+    }
+
+    .nav-item {
+        font-size: 8px;
+    }
+
+/* =========================================
+   MAPA REAL - GEONORMA AQP
+========================================= */
+
+.map-status-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: -9px 2px 12px;
+
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.map-status-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+    background: #e5a52e;
+}
+
+.map-status-success .map-status-dot {
+    background: #269b72;
+}
+
+.map-status-error .map-status-dot {
+    background: #e53e3e;
+}
+
+#map-container {
+    width: 100%;
+    height: 430px;
+    min-height: 430px;
+
+    overflow: hidden;
+
+    background: #e8edf2;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+
+    position: relative;
+}
+
+#mobile-map {
+    width: 100%;
+    height: 100%;
+    min-height: 430px;
+
+    z-index: 1;
+}
+
+.leaflet-container {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #e8edf2;
+}
+
+.leaflet-control-zoom {
+    border: none !important;
+    box-shadow: 0 3px 12px rgba(0,0,0,.15) !important;
+}
+
+.leaflet-control-zoom a {
+    width: 36px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+}
+
+
+/* =========================================
+   FICHA DE ZONIFICACIÓN
+========================================= */
+
+.zone-details {
+    margin-top: 15px;
+    padding: 19px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+
+    box-shadow: 0 4px 15px rgba(20, 40, 70, .04);
+}
+
+.zone-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 12px 5px;
+
+    text-align: center;
+}
+
+.zone-empty-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 26px;
+}
+
+.zone-empty h3 {
+    margin-top: 13px;
+    font-size: 15px;
+}
+
+.zone-empty p {
+    max-width: 260px;
+
+    margin-top: 7px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.zone-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.zone-label {
+    color: var(--text-secondary);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.zone-details-header h3 {
+    margin-top: 5px;
+    color: var(--primary);
+    font-size: 25px;
+    letter-spacing: -0.5px;
+}
+
+.zone-color {
+    width: 30px;
+    height: 30px;
+
+    border: 2px solid white;
+    border-radius: 9px;
+
+    box-shadow: 0 0 0 1px var(--border);
+}
+
+.zone-name {
+    margin-top: 13px;
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.zone-data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 17px 12px;
+
+    margin-top: 17px;
+}
+
+.zone-data-item span,
+.zone-source span {
+    display: block;
+
+    color: var(--text-secondary);
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.zone-data-item p {
+    margin-top: 5px;
+
+    color: var(--text-primary);
+
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.zone-source {
+    margin-top: 19px;
+    padding-top: 14px;
+
+    border-top: 1px solid var(--border);
+}
+
+.zone-source p {
+    margin-top: 6px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.map-reset-button {
+    width: 100%;
+
+    margin-top: 12px;
+    padding: 13px;
+
+    border-radius: 12px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.map-reset-button:active {
+    transform: scale(.98);
+}
+
+
+/* Ajustes de pantalla */
+@media (max-width: 360px) {
+    #map-container,
+    #mobile-map {
+        height: 380px;
+        min-height: 380px;
+    }
+
+    .zone-details {
+        padding: 15px;
+    }
+}
+
+/* =========================================
+   GEONORMA AQP - EXPERIENCIA MAPA COMPLETO
+========================================= */
+
+/* Modo exclusivo del mapa */
+
+body.map-mode {
+    overflow: hidden;
+}
+
+body.map-mode .app-header,
+body.map-mode .bottom-navigation {
+    display: none;
+}
+
+body.map-mode .app-content {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    max-width: none;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+}
+
+body.map-mode #view-mapa {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+
+    overflow: hidden;
+    background: #e8edf2;
+}
+
+
+/* =========================================
+   MAPA
+========================================= */
+
+body.map-mode #map-container {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+
+    border: none;
+    border-radius: 0;
+}
+
+body.map-mode #mobile-map {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+body.map-mode .leaflet-container {
+    width: 100%;
+    height: 100%;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body.map-mode .leaflet-bottom {
+    bottom: 175px;
+}
+
+body.map-mode .leaflet-right {
+    right: 10px;
+}
+
+
+/* =========================================
+   BUSCADOR SUPERIOR
+========================================= */
+
+.map-top-overlay {
+    position: absolute;
+
+    top: calc(env(safe-area-inset-top) + 12px);
+    left: 12px;
+    right: 12px;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.map-back-button {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+    color: var(--primary);
+
+    border-radius: 15px;
+
+    font-size: 32px;
+
+    box-shadow: 0 3px 15px rgba(0,0,0,.16);
+}
+
+.map-search {
+    flex: 1;
+
+    height: 49px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 13px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow: 0 3px 15px rgba(0,0,0,.16);
+}
+
+.search-symbol {
+    color: var(--primary);
+    font-size: 23px;
+}
+
+.map-search input {
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text-primary);
+
+    font-size: 13px;
+}
+
+.map-search input::placeholder {
+    color: #929daf;
+}
+
+.map-search button {
+    width: 31px;
+    height: 31px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border-radius: 10px;
+
+    font-size: 20px;
+}
+
+
+/* =========================================
+   ESTADO DEL MAPA
+========================================= */
+
+body.map-mode .map-status-container {
+    position: absolute;
+
+    top: calc(env(safe-area-inset-top) + 72px);
+    left: 70px;
+
+    z-index: 900;
+
+    margin: 0;
+    padding: 6px 10px;
+
+    background: rgba(255,255,255,.93);
+
+    border-radius: 20px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,.10);
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   BOTÓN RECENTRAR
+========================================= */
+
+.map-recenter-button {
+    position: absolute;
+
+    left: 15px;
+    right: auto;
+
+    bottom: calc(165px + env(safe-area-inset-bottom));
+
+    z-index: 900;
+
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+    color: var(--primary);
+
+    border-radius: 14px;
+
+    box-shadow: 0 3px 14px rgba(0,0,0,.17);
+
+    font-size: 26px;
+}
+
+
+/* =========================================
+   BOTTOM SHEET
+========================================= */
+
+.zone-sheet {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 1100;
+
+    height: 75vh;
+    height: 75dvh;
+
+    display: flex;
+    flex-direction: column;
+
+    background: white;
+
+    border-radius: 23px 23px 0 0;
+
+    box-shadow: 0 -5px 25px rgba(0,0,0,.14);
+
+    overflow: hidden;
+
+    transition: height .28s cubic-bezier(.2,.8,.2,1);
+}
+
+.zone-sheet.collapsed {
+    height: calc(150px + env(safe-area-inset-bottom));
+}
+
+.zone-sheet.half {
+    height: 50vh;
+    height: 50dvh;
+}
+
+.zone-sheet.expanded {
+    height: calc(88dvh - env(safe-area-inset-top));
+}
+
+
+/* =========================================
+   CONTROL DE DESLIZAMIENTO
+========================================= */
+
+.sheet-handle-area {
+    flex-shrink: 0;
+
+    padding: 10px 18px 13px;
+
+    background: white;
+
+    cursor: grab;
+
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.sheet-handle {
+    width: 42px;
+    height: 5px;
+
+    margin: 0 auto 13px;
+
+    background: #d5dbe4;
+
+    border-radius: 10px;
+}
+
+.sheet-collapsed-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 51px;
+}
+
+.sheet-summary-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border-radius: 13px;
+
+    font-size: 23px;
+}
+
+.sheet-collapsed-summary div {
+    flex: 1;
+    min-width: 0;
+}
+
+.sheet-collapsed-summary strong {
+    display: block;
+
+    color: var(--text-primary);
+
+    font-size: 13px;
+}
+
+.sheet-collapsed-summary span:not(.sheet-summary-icon) {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--text-secondary);
+
+    font-size: 10px;
+}
+
+.sheet-chevron {
+    color: #8a98aa;
+    font-size: 20px;
+}
+
+
+/* =========================================
+   CONTENIDO DESLIZABLE
+========================================= */
+
+.sheet-content {
+    flex: 1;
+
+    min-height: 0;
+
+    padding: 5px 20px calc(25px + env(safe-area-inset-bottom));
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.zone-sheet.collapsed .sheet-content {
+    display: none;
+}
+
+
+/* =========================================
+   FICHA DE ZONIFICACIÓN
+========================================= */
+
+.zone-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.zone-label {
+    color: var(--text-secondary);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+}
+
+.zone-details-header h2 {
+    margin-top: 5px;
+
+    color: var(--primary);
+
+    font-size: 28px;
+}
+
+.zone-color {
+    width: 38px;
+    height: 38px;
+
+    border: 2px solid white;
+    border-radius: 12px;
+
+    box-shadow: 0 0 0 1px var(--border);
+}
+
+.zone-name {
+    margin-top: 8px;
+    padding-bottom: 17px;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.zone-section-title {
+    margin-top: 20px;
+    margin-bottom: 16px;
+
+    color: var(--text-primary);
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.zone-data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px 15px;
+}
+
+.zone-data-item span,
+.zone-source span {
+    display: block;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.zone-data-item p {
+    margin-top: 6px;
+
+    color: var(--text-primary);
+
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.zone-source {
+    margin-top: 23px;
+    padding-top: 17px;
+
+    border-top: 1px solid var(--border);
+}
+
+.zone-source p {
+    margin-top: 7px;
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.zone-disclaimer {
+    margin-top: 18px;
+    padding: 12px;
+
+    background: #fff8eb;
+
+    border-radius: 11px;
+
+    color: #927d59;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   ESTADO SIN SELECCIÓN
+========================================= */
+
+.zone-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 15px 5px 25px;
+
+    text-align: center;
+}
+
+.zone-empty-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border-radius: 15px;
+
+    font-size: 25px;
+}
+
+.zone-empty h3 {
+    margin-top: 12px;
+
+    font-size: 15px;
+}
+
+.zone-empty p {
+    max-width: 270px;
+
+    margin-top: 7px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   AJUSTES DE PANTALLA PEQUEÑA
+========================================= */
+
+@media (max-width: 360px) {
+
+    .map-top-overlay {
+        left: 8px;
+        right: 8px;
+        gap: 7px;
+    }
+
+    .map-back-button {
+        width: 42px;
+        height: 44px;
+    }
+
+    .map-search {
+        height: 46px;
+        padding: 0 9px;
+    }
+
+    .map-search input {
+        font-size: 11px;
+    }
+
+    .zone-sheet.collapsed {
+        height: calc(145px + env(safe-area-inset-bottom));
+    }
+
+    .sheet-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+}
+
+/* =========================================
+   TARJETA DE UBICACIÓN ENCONTRADA
+========================================= */
+
+.location-result-card {
+    background: #eef5ff;
+    border: 1px solid #d5e5fa;
+    border-radius: 14px;
+    padding: 15px;
+    margin-bottom: 18px;
+}
+
+.location-result-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.location-result-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 12px;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.location-result-label {
+    display: block;
+    color: #1455a0;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+    margin-bottom: 4px;
+}
+
+.location-result-header h3 {
+    color: #172b4d;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.location-result-detail {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-top: 1px solid #d5e5fa;
+    font-size: 12px;
+}
+
+.location-result-detail span {
+    color: #64748b;
+}
+
+.location-result-detail strong {
+    color: #172b4d;
+    text-align: right;
+}
+
+.location-result-address {
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+}
+
+
+/* =========================================
+   CONSULTAS RECIENTES
+========================================= */
+
+#recent-list.has-items {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 13px;
+
+    padding: 0;
+    background: transparent;
+    border: none;
+    text-align: left;
+}
+
+.recent-card {
+    padding: 16px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+
+    box-shadow: 0 3px 12px rgba(20, 40, 70, .04);
+}
+
+.recent-card-header {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.recent-location-icon {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border-radius: 13px;
+
+    font-size: 24px;
+}
+
+.recent-card-title {
+    flex: 1;
+    min-width: 0;
+}
+
+.recent-card-title h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.recent-card-title span {
+    display: block;
+    margin-top: 5px;
+
+    color: var(--text-secondary);
+    font-size: 11px;
+}
+
+.recent-info-button {
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border: 1px solid #d8e7fa;
+    border-radius: 50%;
+
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.recent-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-top: 14px;
+}
+
+.recent-date {
+    color: var(--text-secondary);
+    font-size: 10px;
+}
+
+.recent-zone {
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.recent-zone.zone-found {
+    background: #e6f6ef;
+    color: #21845f;
+}
+
+.recent-zone.zone-not-found {
+    background: #fff3df;
+    color: #a66b1d;
+}
+
+.recent-details {
+    margin-top: 14px;
+    padding: 12px;
+
+    background: #f7f9fc;
+
+    border: 1px solid var(--border);
+    border-radius: 11px;
+}
+
+.recent-details[hidden] {
+    display: none;
+}
+
+.recent-detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 8px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.recent-detail-row:last-child {
+    border-bottom: none;
+}
+
+.recent-detail-row span {
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.recent-detail-row strong {
+    color: var(--text-primary);
+    font-size: 11px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.recent-map-button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    margin-top: 14px;
+    padding: 12px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    border-radius: 11px;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.recent-map-button:active {
+    transform: scale(.98);
+}
+
+.recent-map-arrow {
+    margin-left: auto;
+    font-size: 17px;
+}
+
+.recent-card.details-open .recent-info-button {
+    background: var(--primary);
+    color: white;
+}
+
+/* =========================================
+   CONSULTAS RECIENTES
+========================================= */
+
+.recent-list.has-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    padding: 5px 0 20px;
+}
+
+.recent-card {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.recent-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.recent-location {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.recent-location h3 {
+    margin: 0;
+    color: #17243a;
+    font-size: 14px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.recent-meta {
+    color: #2872bd;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.recent-date {
+    color: #929daf;
+    font-size: 11px;
+}
+
+.recent-info-button {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #cbd8e8;
+    border-radius: 50%;
+    background: #f3f7fc;
+    color: #2872bd;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.recent-details {
+    margin-top: 13px;
+    padding: 12px;
+    background: #f4f7fb;
+    border-radius: 10px;
+}
+
+.recent-details p {
+    margin: 0 0 8px;
+    color: #596579;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.recent-details p:last-child {
+    margin-bottom: 0;
+}
+
+.recent-map-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px 0 0;
+    border: none;
+    border-top: 1px solid #edf0f5;
+    background: transparent;
+    color: #2872bd;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   NORMATIVA - DOCUMENTOS PDF
+========================================= */
+
+.normativa-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 25px;
+}
+
+.normativa-intro {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+.normativa-intro > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: rgba(20, 85, 160, 0.10);
+    color: #1455a0;
+    font-size: 23px;
+}
+
+.normativa-intro h3 {
+    margin: 0 0 4px;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.normativa-intro p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.normativa-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.normativa-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.normativa-card:active {
+    transform: scale(0.98);
+    background: var(--background);
+}
+
+.normativa-pdf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: #fff0f0;
+    color: #dc3545;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.normativa-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.normativa-info h3 {
+    margin: 0 0 5px;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 1.4;
+    color: var(--text);
+}
+
+.normativa-info p {
+    margin: 0;
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.normativa-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(20, 85, 160, 0.10);
+    color: #1455a0;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.normativa-footer {
+    margin: 0;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* =========================================
+   NORMATIVA - CATÁLOGO MÓVIL
+========================================= */
+
+.normativa-card[hidden],
+[data-documento-extra][hidden] {
+    display: none !important;
+}
+
+.normativa-card {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.normativa-card:active {
+    transform: scale(0.98);
+}
+
+.normativa-card:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.normativa-download {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.normativa-card.loading .normativa-download {
+    animation: normativa-cargando 0.8s linear infinite;
+}
+
+.normativa-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 12px;
+    padding: 14px 18px;
+
+    border: 1px solid #d8c5f5;
+    border-radius: 14px;
+
+    background: #faf7ff;
+    color: #7040a5;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.normativa-toggle:active {
+    background: #f0e7fc;
+}
+
+@keyframes normativa-cargando {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   JERARQUÍA VISUAL DE LA UBICACIÓN
+========================================= */
+
+.ubicacion-container {
+    margin: 14px 0 18px;
+    padding: 12px 14px;
+    background: rgba(20, 85, 160, 0.07);
+    border-left: 3px solid #1455a0;
+    border-radius: 8px;
+}
+
+.ubicacion-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #1455a0;
+    text-transform: uppercase;
+}
+
+.ubicacion-direccion {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text-primary, #222);
+}
+
+.ubicacion-detalle {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-secondary, #777);
+}

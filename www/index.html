@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1455a0">
+
+    <title>GeoNorma AQP</title>
+
+    <link rel="stylesheet" href="css/app.css">
+
+    <!-- Leaflet -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Leaflet Geocoder -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css">
+</head>
+
+<body>
+
+    <!-- BARRA SUPERIOR -->
+    <header class="app-header">
+
+        <div class="header-brand">
+            <div class="brand-icon">G</div>
+
+            <div class="brand-text">
+                <h1>GeoNorma <span>AQP</span></h1>
+                <p>Zonificación urbana de Arequipa</p>
+            </div>
+        </div>
+
+        <button class="header-action"
+                aria-label="Información"
+                onclick="switchView('info')">
+            ⓘ
+        </button>
+
+    </header>
+
+
+    <main class="app-content">
+
+        <!-- INICIO -->
+        <section id="view-inicio" class="view active">
+
+            <div class="welcome-section">
+                <span class="eyebrow">GEONORMA AQP</span>
+
+                <h2>Arequipa<br>a tu alcance.</h2>
+
+                <p>
+                    Explora la zonificación urbana y consulta
+                    los parámetros normativos de cada sector
+                    de la ciudad.
+                </p>
+
+                <button class="primary-button"
+                        onclick="switchView('mapa')">
+                    Explorar mapa <span>→</span>
+                </button>
+
+                <div class="welcome-decoration">
+                    <div class="decoration-circle circle-one"></div>
+                    <div class="decoration-circle circle-two"></div>
+                    <div class="decoration-grid"></div>
+                    <span class="decoration-text">AQP</span>
+                </div>
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">DESCUBRE</span>
+                    <h3>¿Qué puedes hacer?</h3>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+
+                <button class="feature-card"
+                        onclick="switchView('mapa')">
+                    <div class="feature-icon map-icon">⌖</div>
+                    <h4>Explorar mapa</h4>
+                    <p>Consulta los sectores y zonas urbanas.</p>
+                    <span class="feature-arrow">↗</span>
+                </button>
+
+                <button class="feature-card"
+                        onclick="switchView('mapa')">
+                    <div class="feature-icon search-icon">⌕</div>
+                    <h4>Buscar ubicación</h4>
+                    <p>Encuentra un lugar dentro de Arequipa.</p>
+                    <span class="feature-arrow">↗</span>
+                </button>
+
+                <button class="feature-card"
+                        onclick="switchView('normativa')">
+                    <div class="feature-icon document-icon">▤</div>
+                    <h4>Normativa</h4>
+                    <p>Accede a documentos y regulaciones.</p>
+                    <span class="feature-arrow">↗</span>
+                </button>
+
+                <button class="feature-card"
+                        onclick="switchView('recientes')">
+                    <div class="feature-icon history-icon">◷</div>
+                    <h4>Consultas recientes</h4>
+                    <p>Revisa las zonas que has consultado.</p>
+                    <span class="feature-arrow">↗</span>
+                </button>
+
+            </div>
+
+            <div class="info-banner">
+                <div class="info-banner-icon">i</div>
+                <div>
+                    <h4>Información territorial</h4>
+                    <p>
+                        Consulta información referencial sobre
+                        la planificación urbana de Arequipa.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- MAPA A PANTALLA COMPLETA -->
+        <section id="view-mapa" class="view map-fullscreen">
+
+            <!-- MAPA -->
+            <div id="map-container">
+                <div id="mobile-map"></div>
+            </div>
+
+            <!-- BUSCADOR FLOTANTE -->
+            <div class="map-top-overlay">
+
+                <button class="map-back-button"
+                        onclick="switchView('inicio')"
+                        aria-label="Volver">
+                    ‹
+                </button>
+
+                <form id="map-search-form" class="map-search">
+                    <span class="search-symbol">⌕</span>
+
+                    <input
+                        id="map-search-input"
+                        type="search"
+                        placeholder="Buscar dirección o lugar..."
+                        autocomplete="off">
+
+                    <button type="submit"
+                            aria-label="Buscar">
+                        ⌕
+                    </button>
+                </form>
+
+            </div>
+
+            <!-- ESTADO DEL MAPA -->
+            <div class="map-status-container">
+                <span class="map-status-dot"></span>
+                <span id="map-status">Preparando mapa...</span>
+            </div>
+
+            <!-- BOTÓN PARA VOLVER A LA VISTA GENERAL -->
+            <button class="map-recenter-button"
+                    id="map-recenter-button"
+                    aria-label="Volver a Arequipa">
+                ◎
+            </button>
+
+            <!-- FICHA INFERIOR DESLIZABLE -->
+            <div id="zone-sheet" class="zone-sheet collapsed">
+
+                <div class="sheet-handle-area"
+                     id="sheet-handle-area">
+
+                    <div class="sheet-handle"></div>
+
+                    <div class="sheet-collapsed-summary"
+                         id="sheet-collapsed-summary">
+                        <span class="sheet-summary-icon">⌖</span>
+
+                        <div>
+                            <strong>Explora la zonificación</strong>
+                            <span>Selecciona un polígono del mapa</span>
+                        </div>
+
+                        <span class="sheet-chevron">⌃</span>
+                    </div>
+
+                </div>
+
+                <div class="sheet-content" id="zone-details">
+
+                    <div class="zone-empty">
+                        <span class="zone-empty-icon">⌖</span>
+
+                        <h3>Selecciona una zona</h3>
+
+                        <p>
+                            Toca cualquiera de los polígonos del mapa
+                            para consultar sus parámetros normativos.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+        <!-- CONSULTAS RECIENTES -->
+        <section id="view-recientes" class="view">
+
+            <div class="page-heading">
+                <span class="eyebrow">TU ACTIVIDAD</span>
+                <h2>Consultas recientes</h2>
+                <p>
+                    Revisa las ubicaciones y zonas que has explorado anteriormente.
+                </p>
+            </div>
+
+            <div class="recent-container">
+
+                <div class="recent-intro">
+
+                    <div>
+                        <h3>Historial de consultas</h3>
+                        <p>
+                            Tus últimas ubicaciones consultadas aparecerán aquí.
+                        </p>
+                        <br>
+                    </div>
+                </div>
+
+                <!-- AQUÍ SE GENERAN LAS CONSULTAS -->
+                <div id="recent-list" class="recent-list">
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- NORMATIVA -->
+        <section id="view-normativa" class="view">
+
+            <div class="page-heading">
+                <span class="eyebrow">DOCUMENTACIÓN</span>
+                <h2>Normativa</h2>
+                <p>
+                    Documentos relacionados con la regulación urbana de Arequipa.
+                </p>
+            </div>
+
+            <div class="normativa-container">
+
+                <!-- INTRODUCCIÓN -->
+                <div class="normativa-intro">
+                    <span>▤</span>
+
+                    <div>
+                        <h3>Documentos disponibles</h3>
+                        <p>
+                            Consulta, abre o comparte la documentación normativa.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- LISTADO DE DOCUMENTOS -->
+                <div class="normativa-list" id="normativa-list">
+
+                    <!-- DOCUMENTO 1 -->
+                    <button type="button"
+                            class="normativa-card"
+                            data-pdf="zonificacion-pdm-2016-2025-om975.pdf">
+
+                        <span class="normativa-pdf">PDF</span>
+
+                        <span class="normativa-info">
+                            <strong>Zonificación PDM Arequipa 2016–2025 · OM 975</strong>
+                            <small>PDF · 16.9 MB</small>
+                        </span>
+
+                        <span class="normativa-download">↓</span>
+                    </button>
+
+                    <!-- DOCUMENTO 2 -->
+                    <button type="button"
+                            class="normativa-card"
+                            data-pdf="zonificacion-y-compatibilidades.pdf">
+
+                        <span class="normativa-pdf">PDF</span>
+
+                        <span class="normativa-info">
+                            <strong>Zonificación y compatibilidades</strong>
+                            <small>PDF · 640 KB</small>
+                        </span>
+
+                        <span class="normativa-download">↓</span>
+                    </button>
+
+                    <!-- DOCUMENTO 3 -->
+                    <button type="button"
+                            class="normativa-card"
+                            data-pdf="cuadro-de-compatibilidades.pdf">
+
+                        <span class="normativa-pdf">PDF</span>
+
+                        <span class="normativa-info">
+                            <strong>Cuadro de compatibilidades</strong>
+                            <small>PDF · 126 KB</small>
+                        </span>
+
+                        <span class="normativa-download">↓</span>
+                    </button>
+
+                    <!-- DOCUMENTO 4 -->
+                    <button type="button"
+                            class="normativa-card"
+                            data-pdf="zonas-de-reglamentacion-especial.pdf">
+
+                        <span class="normativa-pdf">PDF</span>
+
+                        <span class="normativa-info">
+                            <strong>Zonas de reglamentación especial</strong>
+                            <small>PDF · 466 KB</small>
+                        </span>
+
+                        <span class="normativa-download">↓</span>
+                    </button>
+
+                    <!-- DOCUMENTO 5 -->
+                    <button type="button"
+                            class="normativa-card"
+                            data-pdf="habilitaciones-urbanas.pdf"
+                            hidden
+                            data-documento-extra>
+
+                        <span class="normativa-pdf">PDF</span>
+
+                        <span class="normativa-info">
+                            <strong>Habilitaciones urbanas</strong>
+                            <small>PDF · 467 KB</small>
+                        </span>
+
+                        <span class="normativa-download">↓</span>
+                    </button>
+
+                    <!-- DOCUMENTO 6 -->
+                    <button type="button"
+                            class="normativa-card"
+                            data-pdf="disposiciones-complementarias-finales.pdf"
+                            hidden
+                            data-documento-extra>
+
+                        <span class="normativa-pdf">PDF</span>
+
+                        <span class="normativa-info">
+                            <strong>Disposiciones complementarias finales</strong>
+                            <small>PDF · 432 KB</small>
+                        </span>
+
+                        <span class="normativa-download">↓</span>
+                    </button>
+
+                    <!-- DOCUMENTO 7 -->
+                    <button type="button"
+                            class="normativa-card"
+                            data-pdf="002-pud-cc-reglamento.pdf"
+                            hidden
+                            data-documento-extra>
+
+                        <span class="normativa-pdf">PDF</span>
+
+                        <span class="normativa-info">
+                            <strong>Reglamento · PUD-CC</strong>
+                            <small>PDF · 8.4 MB</small>
+                        </span>
+
+                        <span class="normativa-download">↓</span>
+                    </button>
+
+                </div>
+
+                <!-- VER MÁS / VER MENOS -->
+                <button type="button"
+                        id="toggle-documentos"
+                        class="normativa-toggle"
+                        aria-expanded="false"
+                        aria-controls="normativa-list">
+
+                    <span>📁 Ver más documentos (3)</span>
+
+                </button>
+
+                <!-- PIE -->
+                <p class="normativa-footer">
+                    Documentación disponible para consulta.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- INFORMACIÓN -->
+        <section id="view-info" class="view">
+
+            <div class="page-heading">
+                <span class="eyebrow">ACERCA DEL PROYECTO</span>
+                <h2>GeoNorma AQP</h2>
+                <p>Información territorial al alcance de todos.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-logo">G</div>
+                <h3>GeoNorma AQP</h3>
+                <span class="version-label">Versión 1.0.0</span>
+
+                <p>
+                    Plataforma de consulta territorial que permite
+                    explorar la zonificación urbana de Arequipa
+                    y conocer información relacionada con sus
+                    parámetros normativos.
+                </p>
+            </div>
+
+            <div class="disclaimer-card">
+                <h4>Consideraciones importantes</h4>
+                <p>
+                    La información presentada tiene carácter
+                    referencial y no reemplaza los documentos
+                    oficiales ni los procedimientos de las
+                    autoridades competentes.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- NAVEGACIÓN INFERIOR -->
+    <nav class="bottom-navigation">
+
+        <button class="nav-item active"
+                data-view="inicio"
+                onclick="switchView('inicio')">
+            <span class="nav-icon">⌂</span>
+            <span>Inicio</span>
+        </button>
+
+        <button class="nav-item"
+                data-view="mapa"
+                onclick="switchView('mapa')">
+            <span class="nav-icon">⌖</span>
+            <span>Mapa</span>
+        </button>
+
+        <button class="nav-item"
+                data-view="normativa"
+                onclick="switchView('normativa')">
+            <span class="nav-icon">▤</span>
+            <span>Normativa</span>
+        </button>
+
+        <button class="nav-item"
+                data-view="recientes"
+                onclick="switchView('recientes')">
+            <span class="nav-icon">◷</span>
+            <span>Recientes</span>
+        </button>
+
+    </nav>
+
+
+    <!-- NAVEGACIÓN -->
+    <script>
+        function switchView(viewName) {
+
+            document.querySelectorAll(".view").forEach(view => {
+                view.classList.remove("active");
+            });
+
+            document.querySelectorAll(".nav-item").forEach(item => {
+                item.classList.remove("active");
+            });
+
+            const selectedView = document.getElementById("view-" + viewName);
+
+            const selectedNav = document.querySelector(
+                `.nav-item[data-view="${viewName}"]`
+            );
+
+            if (selectedView) {
+                selectedView.classList.add("active");
+            }
+
+            if (selectedNav) {
+                selectedNav.classList.add("active");
+            }
+
+            // Activar el modo de pantalla completa del mapa.
+            document.body.classList.toggle(
+                "map-mode",
+                viewName === "mapa"
+            );
+
+            // Inicializar el mapa cuando se accede a su sección.
+            if (viewName === "mapa") {
+                if (typeof inicializarMapaMovil === "function") {
+                    inicializarMapaMovil();
+                }
+            }
+
+            // Actualizar las consultas recientes al entrar.
+            if (viewName === "recientes") {
+                if (typeof renderizarRecientes === "function") {
+                    renderizarRecientes();
+                }
+            }
+
+            // Volver al inicio de la pantalla.
+            window.scrollTo({
+                top: 0,
+                behavior: "instant"
+            });
+        }
+    </script>
+
+
+    <!-- LIBRERÍAS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            if (!window.Capacitor?.isNativePlatform?.()) return;
+
+            const StatusBar = window.Capacitor?.Plugins?.StatusBar;
+
+            if (!StatusBar) {
+                console.error("Plugin StatusBar no disponible.");
+                return;
+            }
+
+            try {
+                // Iconos oscuros sobre fondo claro.
+                await StatusBar.setStyle({
+                    style: "LIGHT"
+                });
+
+                await StatusBar.show();
+
+            } catch (error) {
+                console.error("Error configurando StatusBar:", error);
+            }
+        });
+    </script>    
+
+    <!-- DATOS Y LÓGICA -->
+    <script src="js/diccionario.js"></script>
+    <script src="js/recientes.js"></script>
+    <script src="js/mapa-mobile.js"></script>
+    <script src="js/normativa.js"></script>
+
+
+    <!-- BOTÓN ATRÁS DE ANDROID / CAPACITOR -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // Este listener solo se utiliza dentro de la app Android.
+            if (!window.Capacitor?.isNativePlatform?.()) return;
+
+            const App = window.Capacitor?.Plugins?.App;
+
+            if (!App || typeof App.addListener !== "function") {
+                console.error(
+                    "Plugin App no disponible. Instala @capacitor/app y ejecuta npx cap sync android."
+                );
+                return;
+            }
+
+            App.addListener("backButton", () => {
+
+                const vistaActiva = document.querySelector(".view.active");
+
+                if (!vistaActiva) return;
+
+                const vistaActual = vistaActiva.id.replace("view-", "");
+
+                // En el mapa, primero contraer el panel inferior.
+                if (vistaActual === "mapa") {
+
+                    const sheet = document.getElementById("zone-sheet");
+
+                    if (sheet && !sheet.classList.contains("collapsed")) {
+                        sheet.classList.remove("half", "expanded");
+                        sheet.classList.add("collapsed");
+                        return;
+                    }
+                }
+
+                // Desde cualquier sección secundaria, volver a Inicio.
+                if (vistaActual !== "inicio") {
+                    switchView("inicio");
+                }
+
+                // En Inicio no hacemos nada para evitar cerrar la app
+                // accidentalmente.
+            });
+
+        });
+    </script>
+
+</body>
+</html>

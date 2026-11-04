@@ -1,0 +1,6 @@
+section {
+  scroll-margin-top: 5rem;
+}
+
+/* Ocultar las tarjetas adicionales hasta expandir el catálogo. */
+[data-documento-extra][hidden] { display: none !important; }

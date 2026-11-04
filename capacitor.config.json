@@ -1,0 +1,10 @@
+{
+  "appId": "com.geonormaaqp.app",
+  "appName": "GeoNormaAQP",
+  "webDir": "www",
+  "plugins": {
+    "StatusBar": {
+      "style": "LIGHT"
+    }
+  }
+}
