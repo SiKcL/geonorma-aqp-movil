@@ -25,3 +25,5 @@ Thumbs.db
 # Variables de entorno
 .env
 .env.*
+
+releases/*.apk
